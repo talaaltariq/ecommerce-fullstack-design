@@ -168,8 +168,4 @@ This project is licensed under the ISC License - see the LICENSE file for detail
 
 ## 👨‍💻 Author
 
-**Talal Al-Tariq**
-
----
-
-**Happy coding! 🚀**
+**Talal Tariq** DHC-1521
