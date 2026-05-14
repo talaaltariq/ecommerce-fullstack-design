@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "experimentalServices": [
+    {
+      "src": "frontend",
+      "prefix": "/",
+      "framework": "vite"
+    },
+    {
+      "src": "backend",
+      "prefix": "/api"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "/api/:path*"
+    }
+  ]
+}
