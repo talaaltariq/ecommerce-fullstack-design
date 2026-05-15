@@ -10,6 +10,14 @@ import cors from "cors";
 import path from "path";
 
 dotenv.config();
+
+if (!process.env.MONGO_URI) {
+  console.warn("WARNING: MONGO_URI is not defined.");
+}
+if (!process.env.JWT_SECRET) {
+  console.warn("WARNING: JWT_SECRET is not defined.");
+}
+
 const app = express();
 app.use(express.json({ limit: "50mb" }));
 app.use(cookieParser());
