@@ -22,10 +22,18 @@ export const signup = async (req, res) => {
       password,
       role,
     });
+    
+    try {
+      await user.save();
+    } catch (dbError) {
+      console.error("Database save error in signup:", dbError.message);
+      return res.status(500).json({ message: "Failed to create user in database", error: dbError.message });
+    }
+
     generateToken(user._id, res);
-    await user.save();
     res.status(201).json({ user, message: "User created successfully" });
   } catch (error) {
+    console.error("Signup error:", error.message);
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };

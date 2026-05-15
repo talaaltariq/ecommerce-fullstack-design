@@ -11,6 +11,9 @@ import path from "path";
 
 dotenv.config();
 
+// Connect to the database globally (essential for Vercel serverless environment)
+connectDB();
+
 if (!process.env.MONGO_URI) {
   console.warn("WARNING: MONGO_URI is not defined.");
 }
@@ -26,7 +29,7 @@ const __dirname = path.resolve();
 
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:5173",
+    origin: process.env.NODE_ENV === "production" ? true : (process.env.FRONTEND_URL || "http://localhost:5173"),
     credentials: true,
   })
 );
@@ -59,7 +62,10 @@ try {
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-  connectDB();
-});
+if (process.env.NODE_ENV !== "production") {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
+
+export default app;
