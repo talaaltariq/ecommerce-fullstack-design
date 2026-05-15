@@ -7,6 +7,7 @@ export const getAllProducts = async (req, res) => {
     const products = await Product.find({});
     res.json({ products });
   } catch (error) {
+    console.error("Error in getAllProducts:", error.message, error.stack);
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
@@ -16,7 +17,7 @@ export const getFeaturedFroducts = async (req, res) => {
     const featuredFroducts = await Product.find({ isFeatured: true }).lean();
     res.json(featuredFroducts);
   } catch (error) {
-    console.log("error in getFeaturedFroducts route");
+    console.error("Error in getFeaturedFroducts:", error.message, error.stack);
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
@@ -49,6 +50,7 @@ export const createProduct = async (req, res) => {
       .status(201)
       .json({ message: "Product created successfully", product: product });
   } catch (error) {
+    console.error("Error in createProduct:", error.message, error.stack);
     res
       .status(500)
       .json({ message: "error in creating product", error: error.message });
@@ -61,6 +63,7 @@ export const deleteProduct = async (req, res) => {
     await Product.findByIdAndDelete(productId);
     res.status(200).json({ message: "product successfully deleted" });
   } catch (error) {
+    console.error("Error in deleteProduct:", error.message, error.stack);
     res.status(500).json({ message: "error in deleting product", error });
   }
 };
@@ -73,6 +76,7 @@ export const toggleFeaturedProduct = async (req, res) => {
       .status(200)
       .json({ product: product, message: "Featured status updated", product });
   } catch (error) {
+    console.error("Error in toggleFeaturedProduct:", error.message, error.stack);
     res.status(500).json({ message: "Failed to toggle featured", error });
   }
 };
